@@ -1,0 +1,49 @@
+
+server.port: 8888
+
+spring:
+  cloud:
+    gateway:
+      forwarded:
+        enabled: false
+      routes:
+        - id: api
+          uri: "http://localhost:7777"
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+#            - AddRequestHeader=x-forwarded-prefix, /api
+
+---
+
+spring:
+  profiles: gateway-terminates-tls
+
+server.port: 8443
+server.ssl.key-store: keystore.p12
+server.ssl.key-store-password: somepassword
+server.ssl.keyStoreType: PKCS12
+server.ssl.keyAlias: tomcat
+
+---
+
+server.port: 8888
+
+spring:
+  profiles: kubernetes-terminates-tls
+  cloud:
+    gateway:
+#      default-filters:
+#        - Test
+#        - removeForwarded
+      routes:
+        - id: api
+          uri: "http://api:7777"
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+            - RemoveRequestHeader=x-forwarded-port
+            - AddRequestHeader=x-forwarded-prefix, /api
+            - AddRequestHeader=x-forwarded-port, 443,80
