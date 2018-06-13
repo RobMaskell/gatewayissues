@@ -5,6 +5,7 @@ server.port: 8888
 spring:
   cloud:
     gateway:
+#      Remove the "Forwarded" header as it doesn't seem to handle chains of proxies correctly
       forwarded:
         enabled: false
       routes:
@@ -40,9 +41,8 @@ spring:
   profiles: kubernetes-terminates-tls
   cloud:
     gateway:
-      default-filters:
-        - Test
-        - removeForwarded
+#      default-filters:
+#        - Test
       routes:
         - id: api
           uri: "http://api:7777"

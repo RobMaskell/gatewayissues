@@ -16,9 +16,4 @@ public class WebApplication {
 		return new TestGatewayFilterFactory();
 	}
 
-//	@Bean
-//	public RemoveForwardedGatewayFilterFactory removeForwardedGatewayFilterFactory() {
-//		return new RemoveForwardedGatewayFilterFactory();
-//	}
-
 }
