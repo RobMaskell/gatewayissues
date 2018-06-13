@@ -29,19 +29,12 @@ public class RemoveForwardedGatewayFilterFactory implements GlobalFilter, Ordere
 
         logger.info("Run Remove Forwarded Global filter");
 
-//        exchange.getRequest().getHeaders().remove("Forwarded");
-//        exchange.getRequest().getHeaders().remove("forwarded");
-//
-//        return chain.filter(exchange);
-
-//        return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest().mutate()
                     .headers(httpHeaders -> httpHeaders.remove("forwarded"))
                     .headers(httpHeaders -> httpHeaders.remove("Forwarded"))
                     .build();
 
             return chain.filter(exchange.mutate().request(request).build());
-//        };
 
     }
 

@@ -18,20 +18,5 @@ public class CustomWebFilter implements WebFilter {
 
         return chain.filter(exchange);
 
-//        ServerHttpRequest request = exchange.getRequest();
-//
-//        System.out.println("CUSTOM FILTER - " + request.getURI());
-//
-//        ServerHttpRequest.Builder builder = request.mutate();
-////        if (exchange.getRequest().getURI().getPath().equals("/")) {
-////            System.out.println("CUSTOM FILTER - mutate path /index.html");
-////            builder.path("/index.html");
-////        }
-//
-//
-//        ServerHttpRequest newRequest = builder.build();
-//
-//        return chain.filter(exchange.mutate().request(newRequest).build());
-
     }
 }
